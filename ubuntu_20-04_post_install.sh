@@ -1,9 +1,15 @@
 #!/bin/bash
 
 # ----------------------------- VARIÁVEIS ----------------------------- #
-#optei por não instalar drivers diretamente
+#optei por não instalar drivers de vídeo automaticamente
 #PPA_GRAPHICS_DRIVERS="ppa:graphics-drivers/ppa"
+
+## Esse link do google chrome está aqui como exemplo de pacote .deb a ser instalado.
+## Nesta versão específica, não será instalado nenhum arquivo .deb
 #URL_GOOGLE_CHROME="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+
+## Dropbox e Pycharm serão instalados tar.gz. Enquanto o pycharm terá um pouco mais de intervenção
+## o dropbox será automatico, precisando apenas rodar um comando ao término desse script (~/.dropbox-dist/dropboxd).
 URL_PYCHARM_TAR_GZ="https://download.jetbrains.com/python/pycharm-community-2020.3.3.tar.gz"
 URL_DROPBOX_TAR_GZ="https://www.dropbox.com/download?plat=lnx.x86_64"
 
@@ -144,7 +150,7 @@ ATALHO
 # ---------------------------------- DROPBOX --------------------------------- #
 cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
 ## Para finalizar a instalação do dropbox, será necessário executar o comando abaixo:
-# ~/.dropbox-dist/dropboxd"
+# ~/.dropbox-dist/dropboxd
 
 # Instalar programas no apt
 for nome_do_programa in "${PROGRAMAS_PARA_INSTALAR[@]}"; do
