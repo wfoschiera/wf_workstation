@@ -22,6 +22,28 @@ nodejs
 code
 atom
 flameshot
+zlib1g-dev
+libbz2-dev
+libreadline-dev
+libsqlite3-dev
+wget
+curl
+llvm
+gettext
+libncurses5-dev
+tk-dev
+tcl-dev
+blt-dev
+libgdbm-dev
+git
+python-dev
+python3-dev
+aria2
+vim
+libnss3-tools
+python3-venv
+liblzma-dev
+libpq-dev
 )
 
 # ----------------------------- REQUISITOS ----------------------------- #
@@ -55,7 +77,7 @@ sudo apt install software-properties-common apt-transport-https wget
 
 
 ## Instalando pacotes python3
-pip3 install pandas, pipenv, jupyter
+pip install pandas, pipenv, jupyter
 
 ## Instalando pacotes Snap ##
 #sudo snap install slack --classic &&
@@ -106,8 +128,8 @@ StartupWMClass=jetbrains-pycharm-ce
 ATALHO
 
 # Instalar programas no apt
-for nome_do_programa in ${PROGRAMAS_PARA_INSTALAR[@]}; do
-  if ! dpkg -l | grep -q $nome_do_programa; then # Só instala se já não estiver instalado
+for nome_do_programa in "${PROGRAMAS_PARA_INSTALAR[@]}"; do
+  if ! dpkg -l | grep -q "$nome_do_programa"; then # Só instala se já não estiver instalado
     sudo apt install "$nome_do_programa" -y
   else
     echo "[INSTALADO] - $nome_do_programa"
