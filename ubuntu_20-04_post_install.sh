@@ -1,8 +1,9 @@
 #!/bin/bash
 
 # ----------------------------- VARIÁVEIS ----------------------------- #
-PPA_GRAPHICS_DRIVERS="ppa:graphics-drivers/ppa"
-
+#optei por não instalar drivers diretamente
+#PPA_GRAPHICS_DRIVERS="ppa:graphics-drivers/ppa"
+#URL_GOOGLE_CHROME="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
 URL_PYCHARM_TAR_GZ="https://download.jetbrains.com/python/pycharm-community-2020.3.3.tar.gz"
 URL_DROPBOX_TAR_GZ="https://www.dropbox.com/download?plat=lnx.x86_64"
 
@@ -44,6 +45,9 @@ libnss3-tools
 python3-venv
 liblzma-dev
 libpq-dev
+wget
+apt-transport-https
+software-properties-common
 )
 
 # ----------------------------- REQUISITOS ----------------------------- #
@@ -55,30 +59,33 @@ sudo rm /var/cache/apt/archives/lock
 ## Adcionando repositórios de terceiros e ativando repositório Universe (util para Ubuntu live persistent)
 sudo apt-add-repository universe
 
-## Atom
+### Repo Atom
 wget -qO - https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add -
 sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list'
 
-## VSCODE
+### Repo VSCODE
 #And enable the Visual Studio Code repository by typing:
 sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" &&
+#Import the Microsoft GPG key using the following wget command :
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EB3E94ADBE1229CF
 #se ocorrer problema de chave publica, basta adicionar a chave publica usando o comando acima (padrao)
-
-sudo apt update;
-
 
 ## Criar pasta para download dos .debs
 mkdir $DIRETORIO_DOWNLOADS
 
-## Instalar VSCODE
-#Import the Microsoft GPG key using the following wget command :
-sudo apt install software-properties-common apt-transport-https wget
+sudo apt update;
+# ---------------------------------------------------------------------- #
+
+# ----------------------------- INSTALAÇÃO ----------------------------- #
 
 
+# ------------------------------- PYTHON ------------------------------- #
 ## Instalando pacotes python3
 pip install pandas, pipenv, jupyter
 
+# ----------------------------- PACOTES SNAP ----------------------------- #
+
+#optei por instalar o mínimo possível de pacotes SNAP. Até por isso o pycharm foi baixado e instalar via tar.gz.
 ## Instalando pacotes Snap ##
 #sudo snap install slack --classic &&
 #sudo snap install skype --classic &&
@@ -88,32 +95,35 @@ sudo snap install insomnia &&
 sudo snap install spotify &&
 #sudo snap install wps-office-multilang &&
 
+# ------------------------------- FLATHUB ------------------------------- #
+## Não habilitei flathub no ubuntu
 ## Adicionando repositório Flathub ##
-#flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo &&
+# flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo &&
 
 ## Instalando Apps do Flathub ##
-#sudo flatpak install flathub com.obsproject.Studio -y &&
-#sudo flatpak install flathub com.sublimetext.three -y &&
-#sudo flatpak install flathub io.dbeaver.DBeaverCommunity -y &&
+# sudo flatpak install flathub com.obsproject.Studio -y &&
+# sudo flatpak install flathub com.sublimetext.three -y &&
+# sudo flatpak install flathub io.dbeaver.DBeaverCommunity -y &&
 
-## Softwares que precisam de download externo ##
-#se o link parar de funcionar, verificar a versão atual no site oficial
+# -------------------------- DOWNLOADS EXTERNOS -------------------------- #
+## PYCHARM
+## Se o link parar de funcionar, verificar a versão atual no site oficial
 #"https://www.jetbrains.com/pt-br/pycharm/download/download-thanks.html?platform=linux"
 wget -c "$URL_PYCHARM_TAR_GZ"                      -P "$DIRETORIO_DOWNLOADS"
-#wget -cO dropbox.tar.gz "$URL_DROPBOX_TAR_GZ"      -P "$DIRETORIO_DOWNLOADS"
-#Instalando programas baixados na etapa anteriors (Apenas .deb)
-#Só executar se houver algum pacote .deb que foi baixado
-#sudo dpkg -i "$DIRETORIO_DOWNLOADS"/*.deb
 
-## Configuracao especial do pycharm
-#%% Extrair tarball para pasta /opt (Recomendado), depois, criar link simbolico
+# ---------------------------------- .DEB --------------------------------- #
+# Inserir quantos pacotes quanto necessários. O chrome está como exemplo.
+# wget -c "$URL_GOOGLE_CHROME"       -P "$DIRETORIO_DOWNLOADS"
+# Instalando programas baixados na etapa anteriors (Apenas .deb)
+# Só executar se houver algum pacote .deb que foi baixado
+# sudo dpkg -i "$DIRETORIO_DOWNLOADS"/*.deb
+
+# ---------------------------------- PYCHARM --------------------------------- #
+## Configuracao especial do pycharm (para não usar SNAP)
+## Extrair tarball para pasta /opt (Recomendado), depois, criar link simbolico
 sudo tar -xzf "$DIRETORIO_DOWNLOADS"/pycharm-community-*.tar.gz -C /opt &&  sudo ln -sf /opt/pycharm-community-2020.3.3/pycharm.sh /usr/bin/pycharm
 
-cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
-#sudo tar -xzf "$DIRETORIO_DOWNLOADS"/dropbox.tar.gz  -C /opt &&  sudo ln -sf /opt/dropbox-dist/dropboxd /usr/bin/dropbox
-#Se precisar executar manualmente:
-# cd /opt/pycharm-*/bin && sh pycharm.sh
-#configurar atalho no desktop (copiar linha por linha e clicar ENTER).
+## Criar atalho no desktop do PC.
 sudo tee /usr/share/applications/jetbrains-pycharm-ce.desktop <<ATALHO
 [Desktop Entry]
 Version=1.0
@@ -127,6 +137,15 @@ Terminal=false
 StartupWMClass=jetbrains-pycharm-ce
 ATALHO
 
+## Se precisar abrir o Pycharm manualmente:
+# cd /opt/pycharm-*/bin && sh pycharm.sh
+
+
+# ---------------------------------- DROPBOX --------------------------------- #
+cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+## Para finalizar a instalação do dropbox, será necessário executar o comando abaixo:
+# ~/.dropbox-dist/dropboxd"
+
 # Instalar programas no apt
 for nome_do_programa in "${PROGRAMAS_PARA_INSTALAR[@]}"; do
   if ! dpkg -l | grep -q "$nome_do_programa"; then # Só instala se já não estiver instalado
@@ -136,19 +155,19 @@ for nome_do_programa in "${PROGRAMAS_PARA_INSTALAR[@]}"; do
   fi
 done
 
-##Softwares alternativos Windows##
-##GIMP e PhotoGIMP
-#flatpak install flathub org.gimp.GIMP -y && wget -c https://doc-0s-1g-docs.googleusercontent.com/docs/securesc/ha0ro937gcuc7l7deffksulhg5h7mbp1/0v83rmt4mij9897co9ufvor2r1jcj1am/1567965600000/07452089978596344616/*/12i-ihCDSZelx30-oNHJaKAzUei1etsbS?e=download && unzip 12i-ihCDSZelx30-oNHJaKAzUei1etsbS?e=download && cd "PHOTOGIMP V2018 - DIOLINUX" && cd "PATCH" && mkdir -p /home/$USER/.var/app/org.gimp.GIMP/config/GIMP/2.10/ && cp -R * /home/$USER/.var/app/org.gimp.GIMP/config/GIMP/2.10/ &&
-
+# ---------------------- SOFTWARES WINDOWS - USANDO WINE --------------------- #
+## Softwares alternativos Windows##
+## GIMP e PhotoGIMP
+# flatpak install flathub org.gimp.GIMP -y && wget -c https://doc-0s-1g-docs.googleusercontent.com/docs/securesc/ha0ro937gcuc7l7deffksulhg5h7mbp1/0v83rmt4mij9897co9ufvor2r1jcj1am/1567965600000/07452089978596344616/*/12i-ihCDSZelx30-oNHJaKAzUei1etsbS?e=download && unzip 12i-ihCDSZelx30-oNHJaKAzUei1etsbS?e=download && cd "PHOTOGIMP V2018 - DIOLINUX" && cd "PATCH" && mkdir -p /home/$USER/.var/app/org.gimp.GIMP/config/GIMP/2.10/ && cp -R * /home/$USER/.var/app/org.gimp.GIMP/config/GIMP/2.10/ &&
 ## Wine softwares ###
-## wget -c https://uploads.treeunfe.me/downloads/instalar-freenfe.exe
-
+# wget -c https://uploads.treeunfe.me/downloads/instalar-freenfe.exe
 #wine instalar-freenfe.exe ;
 
 # ----------------------------- PÓS-INSTALAÇÃO ----------------------------- #
 ## Finalização, atualização e limpeza##
 sudo apt update && sudo apt dist-upgrade -y
-flatpak update
+## Descomentar se utilizar flatpack
+#flatpak update
 sudo apt autoclean
 sudo apt autoremove -y
 # ---------------------------------------------------------------------- #
