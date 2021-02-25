@@ -1,8 +1,12 @@
 #!/bin/bash
 
 # ----------------------------- VARIÁVEIS ----------------------------- #
-#optei por não instalar drivers de vídeo automaticamente
+## optei por não instalar drivers de vídeo automaticamente
 #PPA_GRAPHICS_DRIVERS="ppa:graphics-drivers/ppa"
+
+## Não utilizo wine
+#URL_WINE_KEY="https://dl.winehq.org/wine-builds/winehq.key"
+#URL_PPA_WINE="https://dl.winehq.org/wine-builds/ubuntu/"
 
 ## Esse link do google chrome está aqui como exemplo de pacote .deb a ser instalado.
 ## Nesta versão específica, não será instalado nenhum arquivo .deb
@@ -64,6 +68,11 @@ sudo rm /var/cache/apt/archives/lock
 
 ## Adcionando repositórios de terceiros e ativando repositório Universe (util para Ubuntu live persistent)
 sudo apt-add-repository universe
+
+#sudo apt-add-repository "$PPA_GRAPHICS_DRIVERS" -y
+#wget -nc "$URL_WINE_KEY"
+#sudo apt-key add winehq.key
+#sudo apt-add-repository "deb $URL_PPA_WINE bionic main"
 
 ### Repo Atom
 wget -qO - https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add -
@@ -163,6 +172,9 @@ done
 
 # ---------------------- SOFTWARES WINDOWS - USANDO WINE --------------------- #
 ## Softwares alternativos Windows##
+## Instalando Wine
+#sudo apt install --install-recommends winehq-stable wine-stable wine-stable-i386 wine-stable-amd64 -y
+
 ## GIMP e PhotoGIMP
 # flatpak install flathub org.gimp.GIMP -y && wget -c https://doc-0s-1g-docs.googleusercontent.com/docs/securesc/ha0ro937gcuc7l7deffksulhg5h7mbp1/0v83rmt4mij9897co9ufvor2r1jcj1am/1567965600000/07452089978596344616/*/12i-ihCDSZelx30-oNHJaKAzUei1etsbS?e=download && unzip 12i-ihCDSZelx30-oNHJaKAzUei1etsbS?e=download && cd "PHOTOGIMP V2018 - DIOLINUX" && cd "PATCH" && mkdir -p /home/$USER/.var/app/org.gimp.GIMP/config/GIMP/2.10/ && cp -R * /home/$USER/.var/app/org.gimp.GIMP/config/GIMP/2.10/ &&
 ## Wine softwares ###
