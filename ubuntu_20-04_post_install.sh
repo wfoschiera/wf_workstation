@@ -88,7 +88,7 @@ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EB3E94ADBE1229CF
 ## Criar pasta para download dos .debs
 mkdir $DIRETORIO_DOWNLOADS
 
-sudo apt update;
+#sudo apt update;
 # ---------------------------------------------------------------------- #
 
 # ----------------------------- INSTALAÇÃO ----------------------------- #
@@ -96,7 +96,7 @@ sudo apt update;
 
 # ------------------------------- PYTHON ------------------------------- #
 ## Instalando pacotes python3
-pip install pandas, pipenv, jupyter
+pip3 install pandas pipenv jupyter
 
 # ----------------------------- PACOTES SNAP ----------------------------- #
 
