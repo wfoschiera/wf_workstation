@@ -135,26 +135,31 @@ wget -c "$URL_PYCHARM_TAR_GZ"                      -P "$DIRETORIO_DOWNLOADS"
 
 # ---------------------------------- PYCHARM --------------------------------- #
 ## Configuracao especial do pycharm (para não usar SNAP)
-## Extrair tarball para pasta /opt (Recomendado), depois, criar link simbolico
-sudo tar -xzf "$DIRETORIO_DOWNLOADS"/pycharm-community-*.tar.gz -C /opt &&  sudo ln -sf /opt/pycharm-community-2020.3.3/pycharm.sh /usr/bin/pycharm
 
-## Criar atalho no desktop do PC.
-sudo tee /usr/share/applications/jetbrains-pycharm-ce.desktop <<ATALHO
+## Instalar pycharm apenas usuário local
+#PYCHARM_DESKTOP="/usr/share/applications"
+
+## Instalar pycharm todos usuários
+PYCHARM_DESKTOP="$HOME/.local/share/applications/"
+
+## Extrair tarball para pasta /opt (Recomendado), depois, criar link simbolico
+sudo mkdir /opt/pycharm && sudo tar -xzf "$DIRETORIO_DOWNLOADS"/pycharm-community-*.tar.gz -C /opt/pycharm --strip-components=1 && 
+
+sudo tee $PYCHARM_DESKTOP/jetbrains-pycharm-ce.desktop <<ATALHO
 [Desktop Entry]
 Version=1.0
 Type=Application
 Name=PyCharm Community Edition
-Icon=/opt/pycharm-community/bin/pycharm.png
-Exec="/opt/pycharm-community/bin/pycharm.sh" %f
-Comment=The Drive to Develop
+Icon=/opt/pycharm/bin/pycharm.svg
+Exec="/opt/pycharm/bin/pycharm.sh" %f
+Comment=Python IDE for Professional Developers
 Categories=Development;IDE;
 Terminal=false
 StartupWMClass=jetbrains-pycharm-ce
+StartupNotify=true
 ATALHO
 
-## Se precisar abrir o Pycharm manualmente:
-# cd /opt/pycharm-*/bin && sh pycharm.sh
-
+sudo chmod 644 $PYCHARM_DESKTOP/jetbrains-pycharm-ce.desktop
 
 # ---------------------------------- DROPBOX --------------------------------- #
 cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
@@ -163,7 +168,7 @@ cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
 
 # Instalar programas no apt
 for nome_do_programa in "${PROGRAMAS_PARA_INSTALAR[@]}"; do
-  if ! dpkg -l | grep -q "$nome_do_programa"; then # Só instala se já não estiver instalado
+  if ! dpkg -l | grep -q "$nome_do_programa"; then # Só instala se não estiver instalado
     sudo apt install "$nome_do_programa" -y
   else
     echo "[INSTALADO] - $nome_do_programa"
@@ -191,4 +196,10 @@ sudo apt autoremove -y
 # ---------------------------------------------------------------------- #
 
 echo "Finalizado"
+echo -e "\n"
+echo "# ------------------------- DROPBOX ------------------------- #"
 echo "Para finalizar a instalação do dropbox, executar o comando: ~/.dropbox-dist/dropboxd"
+echo -e "\n"
+echo "# ------------------------- PYCHARM ------------------------- #"
+echo "Se o pycharm não aparecer no Dash: cd /opt/pycharm/bin; ./pycharm.sh"
+echo "O pycharm será executado, abrir um projeto > Tools > Create Desktop Entry"
