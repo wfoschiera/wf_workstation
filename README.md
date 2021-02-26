@@ -6,7 +6,7 @@
 [![Open Source? Yes!](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)](https://github.com/Naereen/badges/)
 
 Baixe os scripts ou clone este repositório. Na sua máquina, certique-se que o arquivo tem permissões de execução.
-Se não tiver, antes de executá-lo:
+Se não tiver, dê estas permissões através do comando:
 ```sh
 sudo chmod +x nome_do_script.sh
 ```
@@ -32,7 +32,7 @@ Este script instalará algumas extensões do VS Code.
 
 
 #### Importante
-- O script `append_bashrc.sh` deve ser executado uma única vez após a instalação. Executá-lo várias vezes fará com que os comandos fiquem duplicados no .bashrc.
+- O script `append_bashrc.sh` deve ser executado uma única vez após a instalação. Executá-lo várias vezes fará com que as variáveis fiquem duplicadas no .bashrc.
 - Os softwares, pacotes ou extensões estão listados em um array. Personalize conforme sua necessidade.
 
 Inspirado no bash do
