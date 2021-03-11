@@ -51,6 +51,7 @@ python-dev
 python3-dev
 aria2
 vim
+spotify-client
 libnss3-tools
 python3-venv
 liblzma-dev
@@ -84,6 +85,11 @@ sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/v
 #Import the Microsoft GPG key using the following wget command :
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EB3E94ADBE1229CF
 #se ocorrer problema de chave publica, basta adicionar a chave publica usando o comando acima (padrao)
+
+### Repo spotify
+curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add - 
+echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+
 
 ## Criar pasta para download dos .debs
 mkdir $DIRETORIO_DOWNLOADS
