@@ -149,7 +149,7 @@ wget -c "$URL_PYCHARM_TAR_GZ"                      -P "$DIRETORIO_DOWNLOADS"
 PYCHARM_DESKTOP="$HOME/.local/share/applications/"
 
 ## Extrair tarball para pasta /opt (Recomendado), depois, criar link simbolico
-sudo mkdir /opt/pycharm && sudo tar -xzf "$DIRETORIO_DOWNLOADS"/pycharm-community-*.tar.gz -C /opt/pycharm --strip-components=1 && 
+sudo mkdir /opt/pycharm && sudo tar -xzf "$DIRETORIO_DOWNLOADS"/pycharm-community-*.tar.gz -C /opt/pycharm --strip-components=1
 
 sudo tee $PYCHARM_DESKTOP/jetbrains-pycharm-ce.desktop <<ATALHO
 [Desktop Entry]
