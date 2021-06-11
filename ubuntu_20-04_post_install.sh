@@ -20,45 +20,42 @@ URL_DROPBOX_TAR_GZ="https://www.dropbox.com/download?plat=lnx.x86_64"
 DIRETORIO_DOWNLOADS="/$HOME/Downloads/programas"
 
 PROGRAMAS_PARA_INSTALAR=(
-python3
-python3-pip
-guvcview
+apt-transport-https
+aria2
+atom
+build-essential
+beekeeper-studio
+blt-dev
+code
+curl
 docker
 docker-compose
-git
-build-essential
-libssl-dev
-qgis
-nodejs
-code
-atom
 flameshot
-zlib1g-dev
+guvcview
+gettext
+git
 libbz2-dev
+libgdbm-dev
+liblzma-dev
+libncurses5-dev
+libnss3-tools
+libpq-dev
 libreadline-dev
 libsqlite3-dev
-wget
-curl
+libssl-dev
 llvm
-gettext
-libncurses5-dev
-tk-dev
-tcl-dev
-blt-dev
-libgdbm-dev
-git
-python-dev
+nodejs
 python3-dev
-aria2
-vim
-spotify-client
-libnss3-tools
+python3-pip
 python3-venv
-liblzma-dev
-libpq-dev
-wget
-apt-transport-https
+python3
+qgis
 software-properties-common
+spotify-client
+tcl-dev
+tk-dev
+vim
+zlib1g-dev
 )
 
 # ----------------------------- REQUISITOS ----------------------------- #
@@ -87,9 +84,12 @@ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EB3E94ADBE1229CF
 #se ocorrer problema de chave publica, basta adicionar a chave publica usando o comando acima (padrao)
 
 ### Repo spotify
-curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add - 
+wget --quiet -O - https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add -
 echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 
+### Repo BeeKeeper
+wget --quiet -O - https://deb.beekeeperstudio.io/beekeeper.key | sudo apt-key add -
+echo "deb https://deb.beekeeperstudio.io stable main" | sudo tee /etc/apt/sources.list.d/beekeeper-studio-app.list
 
 ## Criar pasta para download dos .debs
 mkdir $DIRETORIO_DOWNLOADS
@@ -103,7 +103,7 @@ mkdir $DIRETORIO_DOWNLOADS
 # ------------------------------- PYTHON ------------------------------- #
 ## Instalando pacotes python3
 pip3 install pandas pipenv jupyter
-
+wget https://pyenv.run | bash
 # ----------------------------- PACOTES SNAP ----------------------------- #
 
 #optei por instalar o mínimo possível de pacotes SNAP. Até por isso o pycharm foi baixado e instalar via tar.gz.
