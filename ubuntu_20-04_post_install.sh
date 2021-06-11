@@ -14,7 +14,7 @@
 
 ## Dropbox e Pycharm serão instalados tar.gz. Enquanto o pycharm terá um pouco mais de intervenção
 ## o dropbox será automatico, precisando apenas rodar um comando ao término desse script (~/.dropbox-dist/dropboxd).
-URL_PYCHARM_TAR_GZ="https://download.jetbrains.com/python/pycharm-community-2020.3.3.tar.gz"
+URL_PYCHARM_TAR_GZ="https://download-cdn.jetbrains.com/python/pycharm-community-2021.1.2.tar.gz"
 URL_DROPBOX_TAR_GZ="https://www.dropbox.com/download?plat=lnx.x86_64"
 
 DIRETORIO_DOWNLOADS="/$HOME/Downloads/programas"
@@ -102,7 +102,7 @@ echo "deb https://deb.beekeeperstudio.io stable main" | sudo tee /etc/apt/source
 ## Criar pasta para download dos .debs
 mkdir $DIRETORIO_DOWNLOADS
 
-#sudo apt update;
+sudo apt update
 # ---------------------------------------------------------------------- #
 
 # ----------------------------- INSTALAÇÃO ----------------------------- #
