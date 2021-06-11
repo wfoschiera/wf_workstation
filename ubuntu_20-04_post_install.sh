@@ -73,6 +73,9 @@ sudo apt-add-repository universe
 #sudo apt-key add winehq.key
 #sudo apt-add-repository "deb $URL_PPA_WINE bionic main"
 
+### Heroku CLI installer
+curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+
 ### Repo Github CLI
 wget -qO - https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
