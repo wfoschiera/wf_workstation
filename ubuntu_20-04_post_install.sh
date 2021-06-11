@@ -33,6 +33,7 @@ docker-compose
 flameshot
 guvcview
 gettext
+gh
 git
 libbz2-dev
 libgdbm-dev
@@ -71,6 +72,10 @@ sudo apt-add-repository universe
 #wget -nc "$URL_WINE_KEY"
 #sudo apt-key add winehq.key
 #sudo apt-add-repository "deb $URL_PPA_WINE bionic main"
+
+### Repo Github CLI
+wget -qO - https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
 
 ### Repo Atom
 wget -qO - https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add -
